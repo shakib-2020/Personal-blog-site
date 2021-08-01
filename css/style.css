@@ -1,0 +1,266 @@
+/* 
+desktop:1200px;
+laptop:1024px;
+tablet:640px;
+phone:480px; */
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+p {
+  font-family: "Noto Sans JP", sans-serif;
+}
+.color-section {
+  background-color: black;
+  color: #e9ecef;
+}
+.white-section {
+  background-color: #ffffff;
+}
+#nav-section {
+  background-color: #090a0b;
+  padding: 20px;
+}
+#left-nev-items {
+  margin-left: 6%;
+}
+.nav-item {
+  color: white;
+  font-weight: 500;
+  padding: 0 11px;
+  font-family: "Roboto", sans-serif;
+}
+.nav-item:hover {
+  color: rgb(151, 151, 151);
+  text-decoration: none;
+}
+#right-nev-items {
+  margin-right: 6%;
+}
+.navbar-right a {
+  padding: 0 6px;
+  color: white;
+  font-weight: 500;
+}
+.navbar-right a:hover {
+  color: rgb(151, 151, 151);
+}
+#nav_subscribe {
+  border: 1px solid #ffff;
+  border-radius: 25px;
+  font-weight: 400;
+  text-decoration: none;
+}
+#nav_subscribe:hover {
+  background-color: white;
+  color: black;
+  transition: 1s;
+}
+@media (max-width: 640px) {
+  .navbar-right {
+    display: none;
+  }
+}
+@media (min-width: 1500px) {
+  #nav-section {
+    font-size: 20px;
+  }
+}
+#big-title {
+  font-weight: bold;
+}
+.title-left {
+  padding: 5%;
+  padding-left: 15%;
+}
+.title-left h1 {
+  color: #ffff;
+}
+.title-left p {
+  color: #9a9494;
+}
+.title-right {
+  padding: 5%;
+  padding-right: 15%;
+}
+.title-right input {
+  padding: 2%;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: #202228;
+  border: 1px solid #4a4946;
+  border-radius: 8px;
+  color: #ffff;
+  outline: 0 !important;
+}
+.title-right input:hover {
+  border: 1px solid #91908e;
+  transition: 1s;
+}
+.title-right button {
+  padding: 2%;
+  font-size: 20px;
+  border: 1px solid #4a4946;
+  border-radius: 8px;
+  color: #000000;
+  background-color: #ea8d00;
+  font-weight: 600;
+  outline: 0 !important;
+}
+.title-right button:hover {
+  border: 1px solid #4a4946;
+  background-color: #c77b06;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .title-right button {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 573px) {
+  .title-right {
+    margin-left: 50px;
+  }
+  .title-right input {
+    width: 140px;
+  }
+}
+@media (max-width: 480px) {
+  #big-title {
+    font-size: 32px;
+  }
+  .title-left p {
+    font-size: 14px;
+  }
+}
+
+.post-feed {
+  padding: 2%;
+  margin: 0;
+  text-align: justify;
+}
+.post-img {
+  height: 17rem;
+}
+
+.post-category {
+  font-weight: 800;
+  margin-bottom: 2px;
+  color: #ea8d00;
+}
+.post-title {
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.post-footer {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+.card {
+  border: none;
+}
+.color-section-post-body {
+  color: #e9ecef;
+  background-color: black;
+}
+.color-section-card-footer {
+  background-color: black;
+}
+@media (min-width: 1500px) {
+  .post-feed {
+    font-size: 20px;
+    word-spacing: 1px;
+  }
+  .post-img {
+    height: 25rem;
+  }
+  .post-title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 640px) {
+  .post-img {
+    height: 20rem;
+  }
+}
+a.post-link,
+a.post-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.footer {
+  padding: 3%;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.footer-icon {
+  margin: 0 18px;
+  font-size: 1rem;
+  color: white;
+}
+.footer-icon:hover {
+  color: rgb(151, 151, 151);
+}
+.footer-text p {
+  margin: 0;
+  font-family: "Noto Sans HK", sans-serif;
+  font-size: 14px;
+  display: inline;
+  color: #a5a4a4;
+}
+.footer-text a {
+  text-decoration: none;
+  color: rgb(151, 151, 151);
+}
+@media (max-width: 480px) {
+  .footer {
+    padding: 50px;
+  }
+}
+@media (min-width: 1500px) {
+  .footer-text p {
+    font-size: 18px;
+  }
+  .footer-icon {
+    font-size: 18px;
+  }
+}
+.about {
+  padding: 4% 30%;
+  line-height: 37px;
+}
+.about p {
+  margin: 0;
+  text-align: justify;
+}
+@media (max-width: 640px) {
+  .about {
+    padding: 5% 13%;
+  }
+}
+@media (max-width: 480px) {
+  .about {
+    padding: 5% 13%;
+  }
+  .about h1 {
+    font-size: 30px;
+  }
+  .about p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
