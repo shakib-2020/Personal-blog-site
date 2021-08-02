@@ -1,0 +1,26 @@
+{
+  "name": "emon-blog",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Md.Nazmus Shakib",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "javascript-time-ago": "^2.3.8",
+    "multer": "^1.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shakib-2020/Personal-blog-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shakib-2020/Personal-blog-site/issues"
+  },
+  "homepage": "https://github.com/shakib-2020/Personal-blog-site#readme",
+  "description": ""
+}

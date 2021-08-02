@@ -1,0 +1,166 @@
+<%- include("partials/header"); -%>
+<!-- nav secton end -->
+<section class="color-section">
+  <div class="container-fluid">
+    <!-- title start -->
+    <div class="row" id="title">
+      <div class="title-left col col-md-6 col-lg-6">
+        <h1 id="big-title">Emon's Blog</h1>
+        <p>Growth and Tech in Digital Bangladesh by Emon Rahman</p>
+      </div>
+      <div class="title-right col col-md-6 col-lg-6">
+        <form action="">
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="youremail@example.com"
+          />
+          <button>Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- title end -->
+<!-- 3 posts feed start-->
+<section class="white-section">
+  <div class="row post-feed">
+    <!-- ejs template start-->
+    <%  if (posts.length > 3 ) { %>
+      <%  posts.slice(3,6).reverse().forEach(function(post){ %>
+      <div class="col-md-4 col-sm-12 col-xs-12">
+         <a href="post.html" class="post-link">
+          <div class="card h-100">
+            <img
+              src="image/<%=post.imageName%>"
+              class="post-img card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <p class="post-category"><%=post.category%></p>
+              <h3 class="post-title card-title"><%=post.title%></h3>
+              <p class="card-text">
+              <%=post.content.substring(0, 100) + " ..."%>
+              </p>
+            </div>
+            <div class="post-footer card-footer">
+              <small class="text-muted"><%= posts.timeAgo %></small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% }) %>
+<% }else{ %>
+      <%  posts.slice(0,3).reverse().forEach(function(post){ %>
+      <div class="col-md-4 col-sm-12 col-xs-12">
+         <a href="post.html" class="post-link">
+          <div class="card h-100">
+            <img
+              src="image/<%=post.imageName%>"
+              class="post-img card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <p class="post-category"><%=post.category%></p>
+              <h3 class="post-title card-title"><%=post.title%></h3>
+              <p class="card-text">
+              <%=post.content.substring(0, 100) + " ..."%>
+              </p>
+            </div>
+            <div class="post-footer card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </a>
+      </div>
+        <% }) %>
+<% } %>
+
+
+    <!-- ejs template end-->
+</div>
+</section>
+<!-- 3 posts feed end -->
+<!-- 2post feed start -->
+<section class="color-section">
+  <div class="row post-feed">
+    <div class="col-md-6 col-sm-12">
+      <div class="card h-100">
+        <img
+          src="image/lg img/industry-3087398_1920.jpg"
+          class="post-img card-img-top"
+          alt="..."
+        />
+        <div class="card-body color-section-post-body">
+          <p class="post-category">Personal</p>
+          <h3 class="post-title card-title">Card title</h3>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little bit longer.
+          </p>
+        </div>
+        <div class="post-footer card-footer color-section-card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="card h-100">
+        <img
+          src="image/lg img/smartphone-6265046_1920.jpg"
+          class="post-img card-img-top"
+          alt="..."
+        />
+        <div class="card-body color-section-post-body">
+          <p class="post-category">Personal</p>
+          <h3 class="post-title card-title">Card title</h3>
+          <p class="card-text">
+            This card has supporting text below as a natural lead-in to
+            additional content.
+          </p>
+        </div>
+        <div class="post-footer card-footer color-section-card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 2post feed end -->
+<!-- 3 posts feed start-->
+<section class="white-section">
+  <div class="row post-feed">
+    <!-- ejs template start-->
+    <%  if (posts.length > 3 ) { %>
+      <%  posts.slice(0,3).reverse().forEach(function(post){ %>
+      <div class="col-md-4 col-sm-12 col-xs-12">
+         <a href="post.html" class="post-link">
+          <div class="card h-100">
+            <img
+              src="image/<%=post.imageName%>"
+              class="post-img card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <p class="post-category"><%=post.category%></p>
+              <h3 class="post-title card-title"><%=post.title%></h3>
+              <p class="card-text">
+              <%=post.content.substring(0, 100) + " ..."%>
+              </p>
+            </div>
+            <div class="post-footer card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% }) %>
+      <% } %>
+
+    <!-- ejs template end-->
+</div>
+</section>
+<!-- 3 posts feed end -->
+<!-- footer start-->
+<%- include("partials/footer"); -%>

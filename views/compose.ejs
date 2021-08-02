@@ -1,0 +1,17 @@
+
+<%- include("partials/header"); -%>
+        <h1 style="padding:0 28%">Compose</h1>
+  <form class="" action="/compose" method="post" enctype="multipart/form-data" style="padding: 0 28%;margin-bottom: 120px;">
+      <div class="form-group">
+          <label>Category</label>
+          <input class="form-control" type="text" name="postCategory">
+          <label>Title</label>
+          <input class="form-control" type="text" name="postTitle">
+          <label>Post</label>
+          <textarea class="form-control" name="postBody" rows="5" cols="30"></textarea>
+          <label>Choose Image(min:320X240px;max:1024 x 768px)</label><br>
+          <input type="file" id="photoInput" name="postImage">
+      </div>
+          <button class="btn btn-primary" type="submit" name="button">Publish</button>
+    </form>
+    <%- include("partials/footer"); -%>
