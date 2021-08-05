@@ -27,10 +27,18 @@
 <section class="white-section">
   <div class="row post-feed">
     <!-- ejs template start-->
-    <%  if (posts.length > 3 ) { %>
-      <%  posts.slice(3,6).reverse().forEach(function(post){ %>
+  <% function reverse(posts){ %>
+  <%  var newPostArray = [];%>
+  <%  for (var i = posts.length - 1; i> -1; i--){%>
+  <%      newPostArray.push(posts[i]);%>
+  <%  } %>
+  <%  return newPostArray;%>
+<%  } %>
+<%  console.log(posts); %>
+
+    <%  reverse(posts).slice(0,3).forEach(function(post){ %>
       <div class="col-md-4 col-sm-12 col-xs-12">
-         <a href="post.html" class="post-link">
+         <a href="/posts/<%=post.title%>" class="post-link">
           <div class="card h-100">
             <img
               src="image/<%=post.imageName%>"
@@ -45,39 +53,12 @@
               </p>
             </div>
             <div class="post-footer card-footer">
-              <small class="text-muted"><%= posts.timeAgo %></small>
+              <small class="text-muted"><%= post.postTime %></small>
             </div>
           </div>
         </a>
       </div>
       <% }) %>
-<% }else{ %>
-      <%  posts.slice(0,3).reverse().forEach(function(post){ %>
-      <div class="col-md-4 col-sm-12 col-xs-12">
-         <a href="post.html" class="post-link">
-          <div class="card h-100">
-            <img
-              src="image/<%=post.imageName%>"
-              class="post-img card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="post-category"><%=post.category%></p>
-              <h3 class="post-title card-title"><%=post.title%></h3>
-              <p class="card-text">
-              <%=post.content.substring(0, 100) + " ..."%>
-              </p>
-            </div>
-            <div class="post-footer card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-          </div>
-        </a>
-      </div>
-        <% }) %>
-<% } %>
-
-
     <!-- ejs template end-->
 </div>
 </section>
@@ -132,10 +113,9 @@
 <section class="white-section">
   <div class="row post-feed">
     <!-- ejs template start-->
-    <%  if (posts.length > 3 ) { %>
-      <%  posts.slice(0,3).reverse().forEach(function(post){ %>
+      <%  reverse(posts).slice(3,6).forEach(function(post){ %>
       <div class="col-md-4 col-sm-12 col-xs-12">
-         <a href="post.html" class="post-link">
+         <a href="/posts/<%=post.title%>" class="post-link">
           <div class="card h-100">
             <img
               src="image/<%=post.imageName%>"
@@ -150,13 +130,12 @@
               </p>
             </div>
             <div class="post-footer card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
+              <small class="text-muted"><%= post.postTime %></small>
             </div>
           </div>
         </a>
       </div>
       <% }) %>
-      <% } %>
 
     <!-- ejs template end-->
 </div>

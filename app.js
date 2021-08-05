@@ -3,8 +3,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-var multer = require("multer");
-var storage = multer.diskStorage({
+const _ = require("lodash");
+const moment = require("moment");
+const multer = require("multer");
+let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/image");
   },
@@ -21,14 +23,14 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-var upload = multer({
+let upload = multer({
   storage: storage,
   limits: {
     filesize: 1024 * 1024 * 5,
   },
   fileFilter: fileFilter,
 });
-
+moment.locale();
 const app = express();
 
 app.set("view engine", "ejs");
@@ -39,10 +41,6 @@ app.use(
 );
 
 app.use(express.static("public"));
-
-const fakeTitle = "This is fake title";
-const fakeContent =
-  "This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.This is fake content.";
 
 let posts = [];
 
@@ -67,22 +65,24 @@ app.post("/compose", upload.single("postImage"), function (req, res) {
     title: req.body.postTitle,
     content: req.body.postBody,
     imageName: req.file.filename,
+    postTime: moment().format("LL"),
   };
   posts.push(post);
-
   res.redirect("/");
 });
-
 app.get("/posts/:postName", function (req, res) {
-  const requestedTitle = req.params.postName;
+  const requestedTitle = _.lowerCase(req.params.postName);
 
   posts.forEach(function (post) {
-    const storedTitle = post.title;
+    const storedTitle = _.lowerCase(post.title);
 
     if (storedTitle === requestedTitle) {
-      console.log("Match found");
-    } else {
-      console.log("Match not found");
+      res.render("post", {
+        category: post.category,
+        title: post.title,
+        image: post.imageName,
+        content: post.content,
+      });
     }
   });
 });

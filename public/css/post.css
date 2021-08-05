@@ -10,7 +10,7 @@
   border-bottom: 1px solid #898686;
   padding-bottom: 10px;
 }
-.post-img {
+.post-image {
   margin: 10px;
   width: 50%;
   height: 20rem;
@@ -28,7 +28,7 @@
   .post-title {
     font-size: 38px;
   }
-  .post-img {
+  .post-image {
     height: 25rem;
     width: 55%;
   }
@@ -50,7 +50,7 @@
   .post {
     padding: 2% 8%;
   }
-  .post-img {
+  .post-image {
     width: 97%;
     height: 15rem;
   }
