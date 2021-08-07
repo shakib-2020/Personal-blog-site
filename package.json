@@ -14,6 +14,7 @@
     "javascript-time-ago": "^2.3.8",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "mongoose": "^5.13.5",
     "multer": "^1.4.2"
   },
   "repository": {
@@ -24,5 +25,6 @@
     "url": "https://github.com/shakib-2020/Personal-blog-site/issues"
   },
   "homepage": "https://github.com/shakib-2020/Personal-blog-site#readme",
+  "devDependencies": {},
   "description": ""
 }

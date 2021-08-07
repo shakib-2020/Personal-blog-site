@@ -1,11 +1,34 @@
 //jshint esversion:6
-
+const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const moment = require("moment");
 const multer = require("multer");
+
+//mongoose connection
+mongoose.connect("mongodb://localhost:27017/EmonDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+  console.log("we're connected!");
+});
+//mongoose post schema
+const postSchema = {
+  category: String,
+  title: String,
+  content: String,
+  image: String,
+  postTime: String,
+};
+//mongoose model
+const Post = mongoose.model("Post", postSchema);
+
+//image upload via multer
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/image");
@@ -31,8 +54,11 @@ let upload = multer({
   fileFilter: fileFilter,
 });
 moment.locale();
+
+//initial express
 const app = express();
 
+//initial ejs
 app.set("view engine", "ejs");
 app.use(
   bodyParser.urlencoded({
@@ -42,11 +68,12 @@ app.use(
 
 app.use(express.static("public"));
 
-let posts = [];
-
+//post array
 app.get("/", function (req, res) {
-  res.render("index", {
-    posts: posts,
+  Post.find({}, function (err, posts) {
+    res.render("index", {
+      posts: posts,
+    });
   });
 });
 
@@ -59,16 +86,18 @@ app.get("/compose", function (req, res) {
 });
 
 app.post("/compose", upload.single("postImage"), function (req, res) {
-  // console.log(req.file);
-  const post = {
+  const post = new Post({
     category: req.body.postCategory,
     title: req.body.postTitle,
     content: req.body.postBody,
-    imageName: req.file.filename,
+    image: req.file.filename,
     postTime: moment().format("LL"),
-  };
-  posts.push(post);
-  res.redirect("/");
+  });
+  post.save(function (err) {
+    if (!err) {
+      res.redirect("/");
+    }
+  });
 });
 app.get("/posts/:postName", function (req, res) {
   const requestedTitle = _.lowerCase(req.params.postName);

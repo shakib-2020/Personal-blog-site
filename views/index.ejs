@@ -33,15 +33,14 @@
   <%      newPostArray.push(posts[i]);%>
   <%  } %>
   <%  return newPostArray;%>
-<%  } %>
-<%  console.log(posts); %>
+  <%  } %>
 
     <%  reverse(posts).slice(0,3).forEach(function(post){ %>
       <div class="col-md-4 col-sm-12 col-xs-12">
          <a href="/posts/<%=post.title%>" class="post-link">
           <div class="card h-100">
             <img
-              src="image/<%=post.imageName%>"
+              src="image/<%=post.image%>"
               class="post-img card-img-top"
               alt="..."
             />
@@ -118,7 +117,7 @@
          <a href="/posts/<%=post.title%>" class="post-link">
           <div class="card h-100">
             <img
-              src="image/<%=post.imageName%>"
+              src="image/<%=post.image%>"
               class="post-img card-img-top"
               alt="..."
             />
