@@ -1,42 +1,20 @@
 <%- include("partials/header"); -%>
-<!-- nav secton end -->
-<section class="color-section">
-  <div class="container-fluid">
-    <!-- title start -->
-    <div class="row" id="title">
-      <div class="title-left col col-md-6 col-lg-6">
-        <h1 id="big-title">Emon's Blog</h1>
-        <p>Growth and Tech in Digital Bangladesh by Emon Rahman</p>
-        <form action="">
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="youremail@example.com"
-          />
-          <button>Subscribe</button>
-        </form>
-      </div>
-      <div class="title-right col col-md-6 col-lg-6">
-        <img src="image/fixed-image/title-image.jpg" alt="">
-      </div>
-    </div>
-  </div>
-</section>
-<!-- title end -->
 <!-- 3 posts feed start-->
 <section class="white-section">
+  <div class="postbox-title">
+      <h2>ALL POSTS:</h2>
+  </div>
   <div class="row post-feed">
     <!-- ejs template start-->
-    <% function reverse(posts){ %>
-    <%  var newPostArray = [];%>
-    <%  for (var i = posts.length - 1; i> -1; i--){%>
-    <%      newPostArray.push(posts[i]);%>
-    <%  } %>
-    <%  return newPostArray;%>
-    <%  } %>
+  <% function reverse(posts){ %>
+  <%  var newPostArray = [];%>
+  <%  for (var i = posts.length - 1; i> -1; i--){%>
+  <%      newPostArray.push(posts[i]);%>
+  <%  } %>
+  <%  return newPostArray;%>
+  <%  } %>
 
-      <%  reverse(posts).slice(0,6).forEach(function(post){ %>
+    <%  reverse(posts).forEach(function(post){ %>
       <div class="col-md-4 col-sm-12 col-xs-12">
          <a href="/posts/<%=post._id%>" class="post-link">
           <div class="card h-100">
@@ -46,7 +24,7 @@
               alt="..."
             />
             <div class="card-body post-body">
-              <p class="post-category"><%=post.category%></p>
+              <p class="post-cat"><%=post.category%></p>
               <h3 class="post-title card-title"><%=post.title%></h3>
               <p class="card-text">
               <%=post.content.substring(0, 200) + " ..."%>
@@ -64,5 +42,6 @@
 </div>
 </section>
 <!-- 3 posts feed end -->
+
 <!-- footer start-->
 <%- include("partials/footer"); -%>

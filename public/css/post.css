@@ -1,78 +1,110 @@
-.post {
+.single-post {
   text-align: center;
   padding: 5% 16%;
 }
-.post-category {
+.single-post-category {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: #ea8d00;
   text-align: left;
 }
-.post-title {
+.single-post-title {
   text-align: left;
   border-bottom: 1px solid #898686;
   padding-bottom: 10px;
+  color: #cbcbcb;
 }
-.post-image {
+.single-post-image {
   margin: 10px;
   width: 50%;
-  height: 20rem;
+  height: auto;
 }
-.post-text {
+.single-post-text {
   text-align: justify;
   font-size: 18px;
   line-height: 2rem;
+  color: #cbcbcb;
 }
 
-@media (min-width: 1400px) {
-  .post-category {
-    font-size: 20px;
+@media only screen and (max-width: 600px) {
+  .single-post {
+    padding: 5% 7%;
   }
-  .post-title {
-    font-size: 38px;
-  }
-  .post-image {
-    height: 25rem;
-    width: 55%;
-  }
-  .post-text {
-    font-size: 20px;
-    word-spacing: 3px;
+  .single-post-image {
+    width: 70%;
   }
 }
-@media (max-width: 640px) {
-  .post-img {
-    width: 88%;
-    height: 15rem;
+
+@media only screen and (max-width: 766px) {
+  .single-post {
+    padding: 5% 8%;
   }
-  .post-title {
-    font-size: 32px;
+  .single-post-image {
+    width: 60%;
+  }
+  .single-post-title {
+    font-size: 2rem;
   }
 }
-@media (max-width: 480px) {
-  .post {
-    padding: 2% 8%;
+@media only screen and (max-width: 425px) {
+  .single-post {
+    text-align: center;
+    padding: 5% 8%;
   }
-  .post-image {
-    width: 97%;
-    height: 15rem;
+  .single-post-image {
+    margin: 10px;
+    width: 90%;
+  }
+  .single-post-text {
+    font-size: 14px;
+  }
+  .single-post-title {
+    font-size: 1.5rem;
   }
 }
 .more-post {
-  padding: 0 16%;
+  padding: 2% 16%;
+  position: relative;
 }
-.more-post h5 {
-  border-bottom: 1px solid #7b7878;
-  padding-bottom: 10px;
+.more-post h3 {
+  margin-bottom: 2rem;
+  color: #929eaa;
+}
+.single-more-post img {
+  width: 22%;
+  height: auto;
+  margin-bottom: 20px;
 }
 .more-post a {
-  display: block;
-  margin-top: 17px;
-  font-size: 20px;
-  text-decoration: none;
+  font-size: 2rem;
+  color: #17a2b8;
+  margin-left: 5px;
+  position: absolute;
+  padding-right: 16%;
 }
 .more-post a:hover {
+  text-decoration: none;
   color: #ea8d00;
 }
-@media (max-width: 480px) {
+@media only screen and (max-width: 766px) {
+  .more-post h3 {
+    font-size: 22px;
+  }
   .more-post {
-    padding: 0 8%;
+    padding: 2% 8%;
+  }
+  .single-more-post img {
+    width: 30%;
+  }
+  .more-post a {
+    font-size: 25px;
+    padding-right: 8%;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .more-post a {
+    font-size: 18px;
+    padding-right: 8%;
   }
 }

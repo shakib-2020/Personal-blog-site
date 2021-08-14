@@ -1,4 +1,5 @@
 //jshint esversion:6
+//jshint esversion:8
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -24,6 +25,7 @@ const postSchema = {
   content: String,
   image: String,
   postTime: String,
+  readTime: String,
 };
 //mongoose model
 const Post = mongoose.model("Post", postSchema);
@@ -81,17 +83,26 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
+app.get("/posts", function (req, res) {
+  Post.find({}, function (err, posts) {
+    res.render("postBox", {
+      posts: posts,
+    });
+  }).sort({ date: -1 });
+});
+
 app.get("/compose", function (req, res) {
   res.render("compose");
 });
 
 app.post("/compose", upload.single("postImage"), function (req, res) {
   const post = new Post({
-    category: req.body.postCategory,
+    category: _.upperCase(req.body.postCategory),
     title: req.body.postTitle,
     content: req.body.postBody,
     image: req.file.filename,
-    postTime: moment().format("LL"),
+    postTime: _.upperCase(moment().format("LL")),
+    readTime: _.upperCase(req.body.readTime),
   });
   post.save(function (err) {
     if (!err) {
@@ -99,21 +110,26 @@ app.post("/compose", upload.single("postImage"), function (req, res) {
     }
   });
 });
-app.get("/posts/:postName", function (req, res) {
-  const requestedTitle = _.lowerCase(req.params.postName);
 
-  posts.forEach(function (post) {
-    const storedTitle = _.lowerCase(post.title);
+app.get("/posts/:postId", async function (req, res) {
+  try {
+    const requestedPostId = req.params.postId;
+    const post = await Post.findOne({ _id: requestedPostId });
+    const posts = await Post.aggregate([
+      { $match: { _id: { $ne: post._id } } },
+      { $sample: { size: 3 } },
+    ]);
 
-    if (storedTitle === requestedTitle) {
-      res.render("post", {
-        category: post.category,
-        title: post.title,
-        image: post.imageName,
-        content: post.content,
-      });
-    }
-  });
+    res.render("post", {
+      category: post.category,
+      title: post.title,
+      image: post.image,
+      content: post.content,
+      morePost: posts,
+    });
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 app.listen(3000, function () {
