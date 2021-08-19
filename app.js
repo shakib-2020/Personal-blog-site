@@ -29,7 +29,6 @@ const postSchema = {
 };
 //mongoose model
 const Post = mongoose.model("Post", postSchema);
-
 //image upload via multer
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {

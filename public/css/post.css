@@ -1,6 +1,6 @@
 .single-post {
-  text-align: center;
   padding: 5% 16%;
+  color: #cbcbcb;
 }
 .single-post-category {
   font-size: 12px;
@@ -17,6 +17,9 @@
 }
 .single-post-image {
   margin: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width: 50%;
   height: auto;
 }
