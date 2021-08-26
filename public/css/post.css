@@ -29,12 +29,20 @@
   line-height: 2rem;
   color: #cbcbcb;
 }
+.single-post-text p img {
+  width: 50%;
+  height: auto;
+  padding: 10px;
+}
 
 @media only screen and (max-width: 600px) {
   .single-post {
     padding: 5% 7%;
   }
   .single-post-image {
+    width: 70%;
+  }
+  .single-post-text p img {
     width: 70%;
   }
 }
@@ -48,6 +56,9 @@
   }
   .single-post-title {
     font-size: 2rem;
+  }
+  .single-post-text p img {
+    width: 60%;
   }
 }
 @media only screen and (max-width: 425px) {
@@ -64,6 +75,9 @@
   }
   .single-post-title {
     font-size: 1.5rem;
+  }
+  .single-post-text p img {
+    width: 90%;
   }
 }
 .more-post {

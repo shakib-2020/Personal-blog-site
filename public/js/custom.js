@@ -22,14 +22,34 @@ $("#photoInput").change(function (e) {
     img.src = _URL.createObjectURL(file);
   }
 });
-
+// init rich text-editor
 tinymce.init({
-  selector: "textarea",
+  selector: "#mytextarea",
+  height: 300,
+  menubar: "file edit format help",
   plugins:
-    "a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker",
+    "advlist lists link autolink autosave code preview searchreplace wordcount media table emoticons image image tools help fullscreen",
   toolbar:
-    "a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table",
-  toolbar_mode: "floating",
-  tinycomments_mode: "embedded",
-  tinycomments_author: "Author name",
+    "bold italic underline | alignleft aligncenter alignright align justify | bullist numlist outdent indent | link image media | forecolor backcolor emoticons fullscreen code preview searchreplace",
+  relative_urls: false,
+  automatic_uploads: true,
+  images_upload_url: "/image",
+  images_upload_handler: function (blobinfo, success, failure) {
+    let headers = new Headers();
+    headers.append("Accept", "Application/JSON");
+    let formData = new FormData();
+    formData.append("inside-post-image", blobinfo.blob(), blobinfo.filename());
+
+    let req = new Request("/image", {
+      method: "POST",
+      headers,
+      mode: "cors",
+      body: formData,
+    });
+
+    fetch(req)
+      .then((res) => res.json())
+      .then((data) => success(data.imageUrl))
+      .catch(() => failure("HTTP Error"));
+  },
 });

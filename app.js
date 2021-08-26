@@ -1,8 +1,10 @@
 //jshint esversion:6
 //jshint esversion:8
+const fs = require("fs");
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 const ejs = require("ejs");
 const _ = require("lodash");
 const moment = require("moment");
@@ -12,6 +14,7 @@ const multer = require("multer");
 mongoose.connect("mongodb://localhost:27017/EmonDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -66,8 +69,8 @@ app.use(
     extended: true,
   })
 );
-
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 
 //post array
 app.get("/", function (req, res) {
@@ -91,7 +94,11 @@ app.get("/posts", function (req, res) {
 });
 
 app.get("/compose", function (req, res) {
-  res.render("compose");
+  Post.find({}, function (err, posts) {
+    res.render("compose", {
+      posts: posts,
+    });
+  }).sort({ date: -1 });
 });
 
 app.post("/compose", upload.single("postImage"), function (req, res) {
@@ -126,6 +133,39 @@ app.get("/posts/:postId", async function (req, res) {
       content: post.content,
       morePost: posts,
     });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.post("/image", upload.single("inside-post-image"), function (
+  req,
+  res,
+  next
+) {
+  if (req.file) {
+    return res.status(200).json({
+      imageUrl: `/image/${req.file.filename}`,
+    });
+  }
+
+  return res.status(500).json({
+    message: "Server Error",
+  });
+});
+//delete route
+app.delete("/posts/:postId/:imagefilename", async function (req, res) {
+  try {
+    const requestedPostId = req.params.postId;
+    const imgfileName = req.params.imagefilename;
+    const path = `./public/image/${imgfileName}`;
+    console.log(path);
+
+    await Post.findOneAndRemove({ _id: requestedPostId });
+
+    await fs.unlinkSync(path);
+
+    res.redirect("/compose");
   } catch (err) {
     res.send(err);
   }

@@ -1,19 +1,74 @@
 
 <%- include("partials/header"); -%>
-        <h1 style="padding:0 16%">Compose</h1>
-  <form class="" action="/compose" method="post" enctype="multipart/form-data" style="padding: 0 16%;margin-bottom: 120px;">
-      <div class="form-group">
-          <label>Category</label>
-          <input class="form-control" type="text" name="postCategory">
-          <label>Title</label>
-          <input class="form-control" type="text" name="postTitle">
-          <label>Post</label>
-          <textarea id="mytextarea" class="form-control text-editor" name="postBody" rows="5" cols="30"></textarea>
-          <label>Read Time</label>
-          <input class="form-control" type="text" name="readTime">
-          <label>Choose Image(min:320X240px;max:1024 x 768px)</label><br>
-          <input type="file" id="photoInput" name="postImage">
-      </div>
-          <button class="btn btn-primary" type="submit" name="button">Publish</button>
-    </form>
+<div>
+  <h1 style="padding:0 16%">Compose</h1>
+<form class="" action="/compose" method="post" enctype="multipart/form-data" style="padding: 0 16%;margin-bottom: 120px;">
+<div class="form-group">
+    <label>Category</label>
+    <input class="form-control" type="text" name="postCategory">
+    <label>Title</label>
+    <input class="form-control" type="text" name="postTitle">
+    <label>Post</label>
+    <textarea id="mytextarea" class="form-control text-editor" name="postBody" rows="5" cols="30"></textarea>
+    <label>Read Time</label>
+    <input class="form-control" type="text" name="readTime">
+    <label>Choose Image(min:320X240px;max:1024 x 768px)</label><br>
+    <input type="file" id="photoInput" name="postImage">
+</div>
+    <button class="btn btn-primary" type="submit" name="button">Publish</button>
+</form>
+</div>
+<div class="admin-all-post">
+    <div>
+        <h2>ALL POSTS:</h2>
+    </div>
+    <div class="">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Category</th>
+                <th scope="col">Title</th>
+                <th scope="col">Content</th>
+                <th scope="col">Date</th>
+                <th scope="col">--</th>
+                <th scope="col">--</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ejs template start-->
+            <% function reverse(posts){ %>
+            <%  var newPostArray = [];%>
+            <%  for (var i = posts.length - 1; i> -1; i--){%>
+            <%      newPostArray.push(posts[i]);%>
+            <%  } %>
+            <%  return newPostArray;%>
+            <%  } %>
+
+              <%  reverse(posts).forEach(function(post){ %>
+        <form action="/posts/<%=post._id%>/<%=post.image%>?_method=DELETE" method="POST" >
+              <tr>
+                <td><img
+                    src="image/<%=post.image%>"
+                    class="admin-posts-img"
+                    alt="..."
+                  /></td>
+                <td><p class="admin-posts-category"><%=post.category%></p></td>
+                <td><p class="admin-posts-title"><%=post.title%></p></td>
+                <td><p class="admin-posts-content">
+                <%=post.content.substring(0, 50).replace(/<[^>]+>/g, '') + " ..."%>
+                </p></td>
+                <td><%= post.postTime %></td>
+                <td><button type="button" name="button">Update</button></td>
+                <td><button type="submit" name="post-delete-button">Delete</button></td>
+                </tr>
+              <% }) %>
+                    <!-- ejs template end-->
+            </tbody>
+          </table>
+        </form>
+    </div>
+  </div>
+
     <%- include("partials/footer"); -%>
