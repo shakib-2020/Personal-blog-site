@@ -1,5 +1,6 @@
 //jshint esversion:6
 //jshint esversion:8
+require("dotenv").config();
 const fs = require("fs");
 const mongoose = require("mongoose");
 const express = require("express");
@@ -9,6 +10,7 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const moment = require("moment");
 const multer = require("multer");
+const https = require("https");
 
 //mongoose connection
 mongoose.connect("mongodb://localhost:27017/EmonDB", {
@@ -159,8 +161,6 @@ app.delete("/posts/:postId/:imagefilename", async function (req, res) {
     const requestedPostId = req.params.postId;
     const imgfileName = req.params.imagefilename;
     const path = `./public/image/${imgfileName}`;
-    console.log(path);
-
     await Post.findOneAndRemove({ _id: requestedPostId });
 
     await fs.unlinkSync(path);
@@ -169,6 +169,46 @@ app.delete("/posts/:postId/:imagefilename", async function (req, res) {
   } catch (err) {
     res.send(err);
   }
+});
+
+//user-subscription mailchimp
+app.post("/user-subscription", function (req, res) {
+  const userEmail = req.body.userEmail;
+
+  const data = {
+    members: [
+      {
+        email_address: userEmail,
+        status: "subscribed",
+      },
+    ],
+  };
+
+  const jsonData = JSON.stringify(data);
+  const url = `https://us2.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_LIST_ID}`;
+  const options = {
+    method: "POST",
+    auth: `Shakib:${process.env.MAILCHIMP_API_KEY}`,
+  };
+  const request = https.request(url, options, function (response) {
+    response.on("data", function (data) {
+      let responseData = JSON.parse(data);
+      if (responseData.new_members.length === 0) {
+        res.render("failure");
+      } else {
+        res.render("success");
+      }
+    });
+  });
+
+  request.write(jsonData);
+  request.end();
+});
+app.post("/success", function (req, res) {
+  res.redirect("/");
+});
+app.post("/failure", function (req, res) {
+  res.redirect("/");
 });
 
 app.listen(3000, function () {

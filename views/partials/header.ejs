@@ -4,8 +4,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emon's Blogs</title>
-
+    <title>Trip Daily Official</title>
     <!-- google font link-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,10 +29,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
 
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/about.css" />
     <link rel="stylesheet" href="/css/post.css" />
     <link rel="stylesheet" href="/css/compose.css" />
     <link rel="stylesheet" href="/css/material-scrolltop.css" />
-
+    <link rel="icon" href="favicon.ico">
   </head>
 
   <body>
@@ -53,8 +53,28 @@
           <a href=""><i class="fab fa-facebook"></i></a>
           <a href=""><i class="fab fa-whatsapp"></i></a>
           <a href=""><i class="fab fa-twitter"></i></a>
-          <a href="" id="nav_subscribe">Subscribe</a>
+          <a href="" id="nav_subscribe" data-toggle="modal" data-target="#ModalCenter">Subscribe</a>
         </div>
       </div>
     </nav>
+    <!-- subscription model pop up -->
+          <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content nav-subscribe-body">
+                  <a type="button" id="close-button" class="close" data-dismiss="modal" aria-label="Close">×</a>
+                    <h2>Subscribe to Trip Daily Official</h2>
+                    <h5>Get the latest posts delivered straight to your inbox!</h5>
+                  <form action="/user-subscription" method="POST">
+                    <input
+                      type="text"
+                      name="userEmail"
+                      placeholder="youremail@example.com"
+                      required
+                      minlength="4"
+                    />
+                    <button type="submit">Subscribe</button>
+                  </form>
+                </div>
+              </div>
+          </div>
 </html>

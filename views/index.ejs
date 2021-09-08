@@ -5,16 +5,17 @@
     <!-- title start -->
     <div class="row" id="title">
       <div class="title-left col col-md-6 col-lg-6">
-        <h1 id="big-title">Emon's Blog</h1>
-        <p>Growth and Tech in Digital Bangladesh by Emon Rahman</p>
-        <form action="">
+        <h1 id="big-title">Trip Daily Official</h1>
+        <p>Let’s Drive Around The World</p>
+        <form action="/user-subscription" method="POST">
           <input
             type="text"
-            name=""
-            id=""
+            name="userEmail"
             placeholder="youremail@example.com"
-          />
-          <button>Subscribe</button>
+            required
+            minlength="4"
+            />
+          <button type="submit">Subscribe</button>
         </form>
       </div>
       <div class="title-right col col-md-6 col-lg-6">

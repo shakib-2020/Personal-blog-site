@@ -73,7 +73,21 @@ p {
   color: black;
   transition: 1s;
 }
-
+.nav-subscribe-body {
+  text-align: center;
+  background-color: #08090ab8;
+  color: white;
+}
+#close-button {
+  padding: 10px;
+  text-align: right;
+}
+.nav-subscribe-body h2 {
+  color: #ddddde;
+}
+.nav-subscribe-body h5 {
+  color: #9a9494;
+}
 #big-title {
   font-weight: bold;
   margin-top: 3rem;
@@ -90,7 +104,8 @@ p {
   color: #9a9494;
   margin-bottom: 3rem;
 }
-.title-left input {
+.title-left input,
+.nav-subscribe-body input {
   padding: 2%;
   font-size: 20px;
   font-weight: 400;
@@ -100,11 +115,16 @@ p {
   color: #ffff;
   outline: 0 !important;
 }
-.title-left input:hover {
+.title-left input:hover,
+.nav-subscribe-body input:hover {
   border: 1px solid #91908e;
   transition: 1s;
 }
-.title-left button {
+.nav-subscribe-body input {
+  margin-bottom: 15px;
+}
+.title-left button,
+.nav-subscribe-body button {
   padding: 2%;
   font-size: 20px;
   border: 1px solid #4a4946;
@@ -114,7 +134,10 @@ p {
   font-weight: 600;
   outline: 0 !important;
 }
-.title-left button:hover {
+.nav-subscribe-body button {
+}
+.title-left button:hover,
+.nav-subscribe-body button:hover {
   border: 1px solid #4a4946;
   background-color: #c77b06;
   font-weight: 600;
@@ -275,50 +298,6 @@ a.post-link:hover {
     width: 100%;
   }
 }
-
-.about {
-  padding: 4% 30%;
-  line-height: 37px;
-}
-.about p {
-  margin: 0;
-  text-align: justify;
-}
-.about h1 {
-  font-size: 30px;
-}
-.about p {
-  margin: 0;
-  font-size: 14px;
-}
-@media only screen and (max-width: 425px) {
-  .about {
-    padding: 0% 10%;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .about {
-    padding: 0 9%;
-  }
-}
-@media only screen and (max-width: 766px) {
-  .about {
-    padding: 0 9%;
-  }
-}
-@media only screen and (min-width: 1440px) {
-  body {
-    font-size: 20px;
-  }
-  .about p {
-    margin: 0;
-    font-size: 20px;
-  }
-  .footer-icon,
-  .footer-text p {
-    font-size: 20px;
-  }
-}
 .postbox-title {
   text-align: center;
   color: white;
@@ -326,7 +305,4 @@ a.post-link:hover {
   border-bottom: 1px solid #8a8989;
   width: 50%;
   margin: 0 auto;
-}
-/* compose */
-.text-editor {
 }

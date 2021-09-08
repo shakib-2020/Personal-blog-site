@@ -53,3 +53,7 @@ tinymce.init({
       .catch(() => failure("HTTP Error"));
   },
 });
+
+function getImgSrc() {
+  var x = document.getElementsById().getElementsByTagName("*");
+}

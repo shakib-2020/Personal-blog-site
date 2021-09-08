@@ -47,7 +47,7 @@
             <%  } %>
 
               <%  reverse(posts).forEach(function(post){ %>
-        <form action="/posts/<%=post._id%>/<%=post.image%>?_method=DELETE" method="POST" >
+        <form action="/posts/<%=post._id%>/<%=post.image%>?_method=DELETE" method="POST">
               <tr>
                 <td><img
                     src="image/<%=post.image%>"
@@ -61,7 +61,7 @@
                 </p></td>
                 <td><%= post.postTime %></td>
                 <td><button type="button" name="button">Update</button></td>
-                <td><button type="submit" name="post-delete-button">Delete</button></td>
+                <td><button type="submit" name="post-delete-button" onclick="getImgSrc()">Delete</button></td>
                 </tr>
               <% }) %>
                     <!-- ejs template end-->
