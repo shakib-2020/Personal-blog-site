@@ -1,0 +1,30 @@
+
+<%- include("partials/header"); -%>
+<div>
+  <form action="/update/<%=post._id%>" method="post" enctype="multipart/form-data" style="padding: 0 16%;margin-bottom: 120px;">
+<div class="form-group">
+    <h1>Compose<a class="btn btn-danger btn-lg" href="/logout" role="button" style="float: right;margin-top: 6px;">Log Out</a>
+</h1>
+    <label>Category</label>
+    <input class="form-control" type="text" name="postCategory" value="<%= post.category %>">
+    <label>Title</label>
+    <input class="form-control" type="text" name="postTitle" value="<%= post.title %>">
+    <label>Post</label>
+    <textarea id="mytextarea" class="form-control text-editor" name="postBody" rows="5" cols="30" value=""><%= post.content %></textarea>
+    <label>Read Time</label>
+    <input class="form-control" type="text" name="readTime" value="<%= post.readTime %>">
+    <% if(post.image){ %>
+      <label>Post Thumbnail</label><br>
+      <img src="/image/<%=post.image%>" id="thumbnail" alt="Post Thumbnail" class="img-fluid">
+  <%  } %>
+  <br>
+    <label>Choose Image(min:320X240px;max:1024 x 768px)</label><br>
+    <input type="file" id="photoInput" name="postImage">
+</div>
+    <button class="btn btn-primary" type="submit" name="button">Update</button>
+</form>
+
+</div>
+
+
+    <%- include("partials/footer"); -%>
