@@ -40,11 +40,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //mongoose connection
-mongoose.connect("mongodb://localhost:27017/EmonDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+mongoose.connect(
+  `mongodb+srv://admin-shakib:${process.env.DBPASSWORD}@cluster0.ddpkc.mongodb.net/MyTechJournal`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  }
+);
 mongoose.set("useCreateIndex", true);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
