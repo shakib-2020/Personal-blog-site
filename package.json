@@ -7,6 +7,9 @@
   },
   "author": "Md.Nazmus Shakib",
   "license": "ISC",
+  "engines": {
+    "node": "12.18.3"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
