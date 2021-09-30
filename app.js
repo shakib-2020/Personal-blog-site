@@ -14,6 +14,7 @@ const _ = require("lodash");
 const moment = require("moment");
 const multer = require("multer");
 const https = require("https");
+const cloudinary = require("cloudinary");
 
 //initial express
 const app = express();
@@ -61,6 +62,7 @@ const postSchema = new mongoose.Schema({
   title: String,
   content: String,
   image: String,
+  cloudinaryImageID: String,
   postTime: String,
   readTime: String,
 });
@@ -84,15 +86,14 @@ passport.use(Admin.createStrategy());
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
-//image upload via multer
-let storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/image");
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().getTime() + file.originalname);
-  },
+//config cloudinary for remore file upload
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+//image upload via multer
+let storage = multer.diskStorage({});
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
@@ -165,47 +166,55 @@ app.get("/compose", function (req, res) {
     res.redirect("/login");
   }
 });
-app.post("/compose", upload.single("postImage"), function (req, res) {
-  const post = new Post({
-    category: _.upperCase(req.body.postCategory),
-    title: req.body.postTitle,
-    content: req.body.postBody,
-    image: req.file.filename,
-    postTime: _.upperCase(moment().format("LL")),
-    readTime: _.upperCase(req.body.readTime),
-  });
-  post.save(function (err) {
-    if (!err) {
-      res.redirect("/compose");
-    }
-  });
+app.post("/compose", upload.single("postImage"), async function (req, res) {
+  try {
+    const imageResult = await cloudinary.v2.uploader.upload(req.file.path);
+    const post = new Post({
+      category: _.upperCase(req.body.postCategory),
+      title: req.body.postTitle,
+      content: req.body.postBody,
+      image: imageResult.secure_url,
+      cloudinaryImageID: imageResult.public_id,
+      postTime: _.upperCase(moment().format("LL")),
+      readTime: _.upperCase(req.body.readTime),
+    });
+    await post.save(function (err) {
+      if (!err) {
+        res.redirect("/compose");
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 // image upload route for text editor
-app.post("/image", upload.single("inside-post-image"), function (
+app.post("/image", upload.single("inside-post-image"), async function (
   req,
   res,
   next
 ) {
-  if (req.file) {
-    return res.status(200).json({
-      imageUrl: `/image/${req.file.filename}`,
-    });
-  }
+  try {
+    const imageResult = await cloudinary.v2.uploader.upload(req.file.path);
+    if (imageResult) {
+      return res.status(200).json({
+        imageUrl: `${imageResult.secure_url}`,
+      });
+    }
 
-  return res.status(500).json({
-    message: "Server Error",
-  });
+    return res.status(500).json({
+      message: "Server Error",
+    });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 //delete route
-app.delete("/posts/:postId/:imagefilename", async function (req, res) {
+app.delete("/posts/:postId", async function (req, res) {
   try {
-    const requestedPostId = req.params.postId;
-    const imgfileName = req.params.imagefilename;
-    const path = `./public/image/${imgfileName}`;
-    await Post.findOneAndRemove({ _id: requestedPostId });
-
-    await fs.unlinkSync(path);
+    const foundPost = await Post.findById(req.params.postId);
+    await cloudinary.v2.uploader.destroy(foundPost.cloudinaryImageID);
+    await foundPost.remove();
 
     res.redirect("/compose");
   } catch (err) {
@@ -330,9 +339,14 @@ app.post("/update/:postId", upload.single("postImage"), async function (
   try {
     const post = await Post.findOne({ _id: req.params.postId });
     let image = post.image;
+    let cloudinaryImageID = post.cloudinaryImageID;
     if (req.file) {
-      image = req.file.filename;
+      await cloudinary.v2.uploader.destroy(post.cloudinaryImageID);
+      const imageResult = await cloudinary.v2.uploader.upload(req.file.path);
+      image = imageResult.secure_url;
+      cloudinaryImageID = imageResult.public_id;
     }
+
     await Post.findOneAndUpdate(
       { _id: req.params.postId },
       {
@@ -340,6 +354,7 @@ app.post("/update/:postId", upload.single("postImage"), async function (
         title: req.body.postTitle,
         content: req.body.postBody,
         image: image,
+        cloudinaryImageID: cloudinaryImageID,
         postTime: _.upperCase(moment().format("LL")),
         readTime: _.upperCase(req.body.readTime),
       },

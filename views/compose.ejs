@@ -48,10 +48,10 @@
             <%  } %>
 
               <%  reverse(posts).forEach(function(post){ %>
-        <form action="/posts/<%=post._id%>/<%=post.image%>?_method=DELETE" method="POST">
+        <form action="/posts/<%=post._id%>?_method=DELETE" method="POST">
               <tr>
                 <td><img
-                    src="image/<%=post.image%>"
+                    src="<%=post.image%>"
                     class="admin-posts-img"
                     alt="..."
                   /></td>
@@ -68,7 +68,7 @@
                   <a class="btn btn-info" href="/update/<%=post._id%>" role="button">Update</a>
                 </td>
                 <td>
-                  <button class="btn btn-danger" type="submit" name="post-delete-button" onclick="getImgSrc()">Delete</button>
+                  <button class="btn btn-danger" type="submit" name="post-delete-button">Delete</button>
                 </td>
                 </tr>
               <% }) %>

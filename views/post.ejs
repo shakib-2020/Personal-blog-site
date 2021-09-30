@@ -4,7 +4,7 @@
   <div class="single-post container-fluid">
     <p class="single-post-category"><%=category%></p>
     <h1 class="single-post-title"><%=title%></h1>
-    <img class="single-post-image" src="/image/<%=image%>" alt="" />
+    <img class="single-post-image" src="<%=image%>" alt="" />
     <section id="getImg" class="single-post-text">
       <p><%-content%></p>
     </section>
@@ -13,7 +13,7 @@
     <h3>MORE POSTS</h3>
       <% morePost.forEach((post) => { %>
         <div class="single-more-post">
-          <img class="" src="/image/<%=post.image%>" alt="" />
+          <img class="" src="<%=post.image%>" alt="" />
           <a href="/posts/<%=post._id%>"><%=post.title%></a>
 
         </div>
